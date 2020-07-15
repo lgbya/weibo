@@ -19,7 +19,7 @@ class SessionsController extends Controller
             'password'=> 'required',
         ]);
 
-        if(!Auth::attempt($credentials)){
+        if(!Auth::attempt($credentials, $request->has('remember'))){
             session()->flash('danger', '很抱歉，您的邮箱和密码不匹配');
             return redirect()->back()->withInput();
         }
