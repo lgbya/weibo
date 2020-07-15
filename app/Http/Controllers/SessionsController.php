@@ -31,6 +31,12 @@ class SessionsController extends Controller
             return redirect()->back()->withInput();
         }
 
+        if (!Auth::user()->activated){
+            Auth::logout();
+            session()->flash('warning', '你的账号未激活，请检查邮箱中的注册邮件进行激活。');
+            return redirect('/');
+        }
+
         session()->flash('success', '欢迎回来！');
         $fallback = route('users.show', Auth::user()->id);
         return redirect()->intended($fallback);
@@ -42,4 +48,5 @@ class SessionsController extends Controller
         session()->flash('success', '您已成功退出！');
         return redirect('login');
     }
+
 }
