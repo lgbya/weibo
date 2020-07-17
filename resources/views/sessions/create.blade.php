@@ -1,9 +1,8 @@
 @extends('layouts.default')
 @section('title', '登录')
-
 @section('content')
     <div class="offset-md-3 col-md-6">
-        <div class="card ">
+        <div class="card">
             <div class="card-header">
                 <h5>登录</h5>
             </div>
@@ -13,11 +12,11 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="email">邮箱：</label>
-                        <input type="text" name="email" class="form-control" value="{{ old('email')}}" />
+                        <input type="text" name="email" class="form-control" value="{{ old('email') }}" >
                     </div>
                     <div class="form-group">
-                        <label for="password">密码：</label>
-                        <input type="password" name="password" class="form-control" value="{{ old('password') }}" />
+                        <label for="password">密码：(<a href="{{ route('password.request') }}">忘记密码</a>)</label>
+                        <input type="password" name="password" class="form-control" value="{{ old('password') }}" >
                     </div>
                     <div class="form-group">
                         <div class="form-check">
