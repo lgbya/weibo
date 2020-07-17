@@ -52,6 +52,16 @@ class User extends Authenticatable
         return $this->hasMany( Status::class);
     }
 
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
+    }
+
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
+    }
+
     public function feed()
     {
         return $this->statuses()
@@ -62,5 +72,28 @@ class User extends Authenticatable
     {
         $hash = md5(strtolower(trim($this->attributes['email'])));
         return "http://www.gravatar.com/avatar/$hash?s=$size";
+    }
+
+    public function follow($userIds)
+    {
+        if(! is_array($userIds)){
+            $userIds = [ $userIds ];
+        }
+
+        $this->followings()->sync($userIds, false);
+    }
+
+    public function unfollow($userIds)
+    {
+        if(! is_array($userIds) ){
+            $userIds = [ $userIds ];
+        }
+
+        $this->followings()->detach($userIds);
+    }
+
+    public function isFollowing($userId)
+    {
+        return $this->followings->contains($userId);
     }
 }
