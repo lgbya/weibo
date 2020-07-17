@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class UsersController extends Controller
@@ -27,8 +28,8 @@ class UsersController extends Controller
 
     public function show(User $user)
     {
-        $feedItems = $user->feed()->paginate(10);
 
+        $feedItems = $user->feed()->paginate(10);
         return view('users.show', [
             'user'=>$user,
             'feedItems' => $feedItems,

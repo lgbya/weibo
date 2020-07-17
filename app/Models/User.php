@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class User extends Authenticatable
@@ -64,7 +65,10 @@ class User extends Authenticatable
 
     public function feed()
     {
-        return $this->statuses()
+        $userIds = $this->followings->pluck('id')->toArray();
+
+        return Status::whereIn('user_id', $userIds)
+            ->with('user')
             ->orderBy('created_at', 'desc');
     }
 
