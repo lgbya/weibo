@@ -49,7 +49,7 @@ class User extends Authenticatable
 
     public function statuses()
     {
-        return $this->belongsToMany(self::class, Status::class, 'id', 'user_id');
+        return $this->hasMany( Status::class);
     }
 
     public function gravatar($size = '100')
