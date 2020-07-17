@@ -27,11 +27,11 @@ class UsersController extends Controller
 
     public function show(User $user)
     {
-        $statuses = $user->feed()->paginate(10);
+        $feedItems = $user->feed()->paginate(10);
 
         return view('users.show', [
             'user'=>$user,
-            'statuses' => $statuses,
+            'feedItems' => $feedItems,
         ]);
     }
 
