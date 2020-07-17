@@ -47,6 +47,11 @@ class User extends Authenticatable
         });
     }
 
+    public function statuses()
+    {
+        return $this->belongsToMany(self::class, Status::class, 'id', 'user_id');
+    }
+
     public function gravatar($size = '100')
     {
         $hash = md5(strtolower(trim($this->attributes['email'])));
